@@ -150,7 +150,6 @@ public class RegistrationFrag extends Fragment {
                                 JSONObject testObject = test.getJSONObject(0);
                                 login = testObject.getString("login");
                                 email = testObject.getString("email");
-                                System.out.println(login + " " + email + "TTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
                                 if (!login.equals("null") || !email.equals("null")){
                                     pom = 1;
                                 }
