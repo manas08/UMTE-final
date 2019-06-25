@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nový uživatel"
+            android:textSize="0.12in"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/regUsername"
+            android:layout_marginTop="30dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:hint="Uživatelské jméno"/>
+
+        <EditText
+            android:id="@+id/regEmail"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
+            android:hint="E-mailová adresa"/>
+
+        <EditText
+            android:id="@+id/regPassword"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:hint="Heslo"/>
+
+        <EditText
+            android:id="@+id/regConfirmPassword"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:hint="Potvrzení hesla"/>
+
+        <Button
+            android:id="@+id/regEnter"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="signUp"
+            android:text="Registrovat"/>
+
+    </LinearLayout>
+</LinearLayout>

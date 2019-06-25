@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@drawable/ic_fiber_new_black_24dp"
+            android:title="Novinky" />
+        <item
+            android:id="@+id/nav_films"
+            android:icon="@drawable/ic_local_movies_black_24dp"
+            android:title="Filmy" />
+        <item
+            android:id="@+id/nav_actors"
+            android:icon="@drawable/ic_star_border_black_24dp"
+            android:title="Herci" />
+        <item
+            android:id="@+id/nav_directors"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Režiséři" />
+        <item
+            android:id="@+id/nav_top10"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
+            android:title="Top 10" />
+    </group>
+
+    <item android:title="Účet">
+        <menu>
+            <item
+                android:id="@+id/nav_log_in"
+                android:icon="@drawable/ic_lock_outline_black_24dp"
+                android:title="Přihlášení / Registrace" />
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Můj profil" />
+        </menu>
+    </item>
+
+</menu>

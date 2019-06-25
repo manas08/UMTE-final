@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MyProfileActivity"
+    tools:showIn="@layout/app_bar_my_profile"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:scaleX="1.7"
+            android:scaleY="1.7"
+            android:src="@drawable/ic_person_black_24dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="30dp"
+            android:text="Odhlásit se"
+            android:onClick="logout"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/profileLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+        android:text="E-mail" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/profileFilmText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18dp"
+        android:text="Filmy" />
+
+    <TextView
+        android:id="@+id/profileFilms"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:text="Dosud žádné ohodnocené filmy"
+        android:layout_height="wrap_content">
+
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/profileActorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18dp"
+        android:text="Herci" />
+
+    <TextView
+        android:id="@+id/profileActors"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:text="Dosud žádní ohodnocení herci"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <TextView
+        android:id="@+id/profileDirectorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18dp"
+        android:text="Režiséři" />
+
+    <TextView
+        android:id="@+id/profileDirectors"
+        android:textSize="15dp"
+        android:layout_marginTop="5dp"
+        android:text="Dosud žádní ohodnocení režiséři"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
