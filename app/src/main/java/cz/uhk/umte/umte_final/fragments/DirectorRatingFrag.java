@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -16,6 +18,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.w3c.dom.Text;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +35,7 @@ public class DirectorRatingFrag extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager manager;
+    TextView textView;
 
     List<Ratings> ratings;
 
@@ -48,12 +55,23 @@ public class DirectorRatingFrag extends Fragment {
         //MANAGER LINEAR - budou pod sebou
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
+        textView=getView().findViewById(R.id.completeDirectorRate);
 
         loadData();
     }
 
     //ADAPTER
     private void renderView(List<Ratings> list){
+        float pom = 0;
+
+        for (int i = 0; i< list.size(); i++){
+            pom += list.get(i).getStars();
+        }
+        float c = (float) (((pom/list.size())/5)*100);
+
+        DecimalFormat df = new DecimalFormat("#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        textView.setText("Celkové hodnocení: " + df.format(c) + "%");
         adapter = new RatingFeedAdapter(list);
         recyclerView.setAdapter(adapter);
     }

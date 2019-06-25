@@ -39,8 +39,32 @@ public class MainActivity extends AppCompatActivity
 
         sessionManager = new SessionManager(this);
 
-        ImageView imageViewYoutube = (ImageView) findViewById(R.id.imageViewYoutube1);
-        imageViewYoutube.setOnClickListener(new View.OnClickListener() {
+        ImageView imageViewYoutube1 = (ImageView) findViewById(R.id.imageViewYoutube1);
+        imageViewYoutube1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=GYdiUQsYqcs"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView imageViewYoutube2 = (ImageView) findViewById(R.id.imageViewYoutube2);
+        imageViewYoutube2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://www.youtube.com/watch?v=jNVZjNB8ptk"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView imageViewYoutube3 = (ImageView) findViewById(R.id.imageViewYoutube3);
+        imageViewYoutube3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -50,7 +74,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
     }
 
     @Override

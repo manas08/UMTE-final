@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 
 import com.android.volley.Request;
@@ -199,6 +198,7 @@ public class FilmListActivity extends AppCompatActivity
         intent.putExtra("filmDirector", f.getReziser().getJmeno() + " " + f.getReziser().getPrijmeni());
         intent.putExtra("filmCountry", f.getZemeNataceni());
         intent.putExtra("filmGenre", f.getGenre());
+        intent.putExtra("filmImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -223,6 +223,7 @@ public class FilmListActivity extends AppCompatActivity
                             int directorid;
                             String firstName = null;
                             String lastName = null;
+                            String imageName;
                             try {
                                 test = new JSONArray(response);
 
@@ -237,11 +238,12 @@ public class FilmListActivity extends AppCompatActivity
                                         year = testObject.getInt(3);
                                         state = testObject.getString(4);
                                         genre = testObject.getString(5);
-                                        directorid = testObject.getInt(6);
-                                        firstName = testObject.getString(7);
-                                        lastName = testObject.getString(8);
-                                        Film film = new Film(id,title, nameOrigin, year, state, genre);
-                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","");
+                                        imageName = testObject.getString(6);
+                                        directorid = testObject.getInt(7);
+                                        firstName = testObject.getString(8);
+                                        lastName = testObject.getString(9);
+                                        Film film = new Film(id,title, nameOrigin, year, state, genre, imageName);
+                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","","");
                                         film.setReziser(director);
                                         films.add(film);
                                     }

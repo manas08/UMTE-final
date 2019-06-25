@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -36,7 +37,8 @@ import cz.uhk.umte.umte_final.model.Film;
 
 public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewListener {
 
-    private TextView directorFirst, directorLast, directorAge, placeBirth, dateBirth, placeDeath, dateDeath;
+    private TextView directorLast, directorAge, placeBirth, dateBirth, placeDeath, dateDeath, director, death;
+    private ImageView imageView;
 
     private List<Film> films;
 
@@ -54,7 +56,6 @@ public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewLi
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        directorFirst = getView().findViewById(R.id.directorFirst);
         directorLast = getView().findViewById(R.id.directorLast);
         directorAge = getView().findViewById(R.id.directorAge);
         placeBirth = getView().findViewById(R.id.placeBirth);
@@ -62,13 +63,26 @@ public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewLi
         placeDeath = getView().findViewById(R.id.placeDeath);
         dateDeath = getView().findViewById(R.id.dateDeath);
 
-        directorFirst.setText(getActivity().getIntent().getStringExtra("directorFirst"));
-        directorLast.setText(getActivity().getIntent().getStringExtra("directorLast"));
+        director = getView().findViewById(R.id.director);
+        death = getView().findViewById(R.id.death);
+
+        directorLast.setText(getActivity().getIntent().getStringExtra("directorFirst") + " " + getActivity().getIntent().getStringExtra("directorLast"));
         directorAge.setText(getActivity().getIntent().getStringExtra("directorAge"));
         placeBirth.setText(getActivity().getIntent().getStringExtra("placeBirth"));
         dateBirth.setText(getActivity().getIntent().getStringExtra("dateBirth"));
         placeDeath.setText(getActivity().getIntent().getStringExtra("placeDeath"));
         dateDeath.setText(getActivity().getIntent().getStringExtra("dateDeath"));
+
+        if (getActivity().getIntent().getStringExtra("placeDeath").equals("")){
+            director.setVisibility(View.INVISIBLE);
+            death.setVisibility(View.INVISIBLE);
+            placeDeath.setVisibility(View.INVISIBLE);
+            dateDeath.setVisibility(View.INVISIBLE);
+        }
+
+        imageView = getView().findViewById(R.id.directorImageView);
+        if (!getActivity().getIntent().getStringExtra("directorImageName").equals(""))
+            imageView.setImageResource(getResources().getIdentifier(getActivity().getIntent().getStringExtra("directorImageName"), "drawable", getContext().getPackageName()));
 
         //RECYCLERVIEW
         recyclerView = getView().findViewById(R.id.recyclerDirectorsFilmsView);
@@ -101,6 +115,7 @@ public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewLi
                             int directorid;
                             String firstName = null;
                             String lastName = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -115,11 +130,12 @@ public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewLi
                                         year = testObject.getInt(3);
                                         state = testObject.getString(4);
                                         genre = testObject.getString(5);
-                                        directorid = testObject.getInt(6);
-                                        firstName = testObject.getString(7);
-                                        lastName = testObject.getString(8);
-                                        Film film = new Film(id,title, nameOrigin, year, state, genre);
-                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","");
+                                        imageName = testObject.getString(6);
+                                        directorid = testObject.getInt(7);
+                                        firstName = testObject.getString(8);
+                                        lastName = testObject.getString(9);
+                                        Film film = new Film(id,title, nameOrigin, year, state, genre, imageName);
+                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","", "");
                                         film.setReziser(director);
                                         films.add(film);
                                     }
@@ -166,6 +182,7 @@ public class DirectorDetailFrag extends Fragment implements DirectorsFilmsViewLi
         intent.putExtra("filmDirector", item.getReziser().getJmeno() + " " + item.getReziser().getPrijmeni());
         intent.putExtra("filmCountry", item.getZemeNataceni());
         intent.putExtra("filmGenre", item.getGenre());
+        intent.putExtra("filmImageName", item.getAdresar());
 
         startActivityForResult(intent, 1001);
     }

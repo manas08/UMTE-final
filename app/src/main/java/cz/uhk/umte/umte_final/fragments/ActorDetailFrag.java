@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -39,7 +40,8 @@ import cz.uhk.umte.umte_final.model.Film;
 
 public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener {
 
-    private TextView actorFirst, actorLast, actorAge, placeBirth, dateBirth, placeDeath, dateDeath;
+    private TextView actorLast, actorAge, placeBirth, dateBirth, placeDeath, dateDeath, actor, death;
+    private ImageView imageView;
 
     private List<Film> films;
 
@@ -57,7 +59,6 @@ public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        actorFirst = getView().findViewById(R.id.actorFirst);
         actorLast = getView().findViewById(R.id.actorLast);
         actorAge = getView().findViewById(R.id.actorAge);
         placeBirth = getView().findViewById(R.id.placeBirth);
@@ -65,13 +66,26 @@ public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener
         placeDeath = getView().findViewById(R.id.placeDeath);
         dateDeath = getView().findViewById(R.id.dateDeath);
 
-        actorFirst.setText(getActivity().getIntent().getStringExtra("actorFirst"));
-        actorLast.setText(getActivity().getIntent().getStringExtra("actorLast"));
+        actor = getView().findViewById(R.id.actor);
+        death = getView().findViewById(R.id.death);
+
+        actorLast.setText(getActivity().getIntent().getStringExtra("actorFirst") + " " + getActivity().getIntent().getStringExtra("actorLast"));
         actorAge.setText(getActivity().getIntent().getStringExtra("actorAge"));
         placeBirth.setText(getActivity().getIntent().getStringExtra("placeBirth"));
         dateBirth.setText(getActivity().getIntent().getStringExtra("dateBirth"));
         placeDeath.setText(getActivity().getIntent().getStringExtra("placeDeath"));
         dateDeath.setText(getActivity().getIntent().getStringExtra("dateDeath"));
+
+        if (getActivity().getIntent().getStringExtra("placeDeath").equals("")){
+            actor.setVisibility(View.INVISIBLE);
+            death.setVisibility(View.INVISIBLE);
+            placeDeath.setVisibility(View.INVISIBLE);
+            dateDeath.setVisibility(View.INVISIBLE);
+        }
+
+        imageView = getView().findViewById(R.id.actorImageView);
+        if (!getActivity().getIntent().getStringExtra("actorImageName").equals(""))
+            imageView.setImageResource(getResources().getIdentifier(getActivity().getIntent().getStringExtra("actorImageName"), "drawable", getContext().getPackageName()));
 
         //RECYCLERVIEW
         recyclerView = getView().findViewById(R.id.recyclerActorsFilmsView);
@@ -104,6 +118,7 @@ public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener
                             int directorid;
                             String firstName = null;
                             String lastName = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -118,11 +133,12 @@ public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener
                                         year = testObject.getInt(3);
                                         state = testObject.getString(4);
                                         genre = testObject.getString(5);
-                                        directorid = testObject.getInt(6);
-                                        firstName = testObject.getString(7);
-                                        lastName = testObject.getString(8);
-                                        Film film = new Film(id,title, nameOrigin, year, state, genre);
-                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","");
+                                        imageName = testObject.getString(6);
+                                        directorid = testObject.getInt(7);
+                                        firstName = testObject.getString(8);
+                                        lastName = testObject.getString(9);
+                                        Film film = new Film(id,title, nameOrigin, year, state, genre, imageName);
+                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","", "");
                                         film.setReziser(director);
                                         films.add(film);
                                     }
@@ -169,6 +185,7 @@ public class ActorDetailFrag extends Fragment implements ActorsFilmsViewListener
         intent.putExtra("filmDirector", item.getReziser().getJmeno() + " " + item.getReziser().getPrijmeni());
         intent.putExtra("filmCountry", item.getZemeNataceni());
         intent.putExtra("filmGenre", item.getGenre());
+        intent.putExtra("filmImageName", item.getAdresar());
 
         startActivityForResult(intent, 1001);
     }

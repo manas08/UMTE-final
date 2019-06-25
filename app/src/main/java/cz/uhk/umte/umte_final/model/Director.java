@@ -14,7 +14,7 @@ public class Director {
     public String adresar;
     public float hodnoceni;
 
-    public Director(int id, String jmeno, String prijmeni, int vek, String datumNarozeni, String mistoNarozeni, String datumUmrti, String mistoUmrti) {
+    public Director(int id, String jmeno, String prijmeni, int vek, String datumNarozeni, String mistoNarozeni, String datumUmrti, String mistoUmrti, String adresar) {
         this.id = id;
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
@@ -23,6 +23,7 @@ public class Director {
         this.mistoNarozeni = mistoNarozeni;
         this.datumUmrti = datumUmrti;
         this.mistoUmrti = mistoUmrti;
+        this.adresar = adresar;
     }
 
     public int getId() {

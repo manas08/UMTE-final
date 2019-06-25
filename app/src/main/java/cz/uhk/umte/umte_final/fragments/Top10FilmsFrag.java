@@ -75,6 +75,7 @@ public class Top10FilmsFrag extends Fragment implements Top10FilmsViewListener {
         intent.putExtra("filmDirector", f.getReziser().getJmeno() + " " + f.getReziser().getPrijmeni());
         intent.putExtra("filmCountry", f.getZemeNataceni());
         intent.putExtra("filmGenre", f.getGenre());
+        intent.putExtra("filmImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -100,6 +101,7 @@ public class Top10FilmsFrag extends Fragment implements Top10FilmsViewListener {
                             int directorid;
                             String firstName = null;
                             String lastName = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -114,17 +116,18 @@ public class Top10FilmsFrag extends Fragment implements Top10FilmsViewListener {
                                         year = testObject.getInt(3);
                                         state = testObject.getString(4);
                                         genre = testObject.getString(5);
-                                        directorid = testObject.getInt(6);
-                                        firstName = testObject.getString(7);
-                                        lastName = testObject.getString(8);
-                                        if (!testObject.getString(9).equals("null")){
-                                            value.add(Float.parseFloat(testObject.getString(9)));
+                                        imageName = testObject.getString(6);
+                                        directorid = testObject.getInt(7);
+                                        firstName = testObject.getString(8);
+                                        lastName = testObject.getString(9);
+                                        if (!testObject.getString(10).equals("null")){
+                                            value.add(Float.parseFloat(testObject.getString(10)));
                                         } else {
                                             float v = 0;
                                             value.add(v);
                                         }
-                                        Film film = new Film(id,title, nameOrigin, year, state, genre);
-                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","");
+                                        Film film = new Film(id,title, nameOrigin, year, state, genre, imageName);
+                                        Director director = new Director(directorid,firstName, lastName, 0, "","","","", "");
                                         film.setReziser(director);
                                         films.add(film);
                                     }

@@ -52,13 +52,11 @@ public class MyProfileActivity extends AppCompatActivity
 
         TextView profileLogin = findViewById(R.id.profileLogin);
         TextView profileEmail = findViewById(R.id.profileEmail);
-        listFilm = findViewById(R.id.profileFilms);
 
         sessionManager = new SessionManager(this);
         if (sessionManager.isLoggedIn()){
             profileLogin.setText(sessionManager.getUserLogin());
             profileEmail.setText(sessionManager.getUserEmail());
-            loadData();
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -130,64 +128,5 @@ public class MyProfileActivity extends AppCompatActivity
     public void logout(View view) {
         sessionManager.logoutUser();
         finish();
-    }
-
-    public void loadData(){
-
-        String URL="https://umte-final.000webhostapp.com/profileFilmList.php";
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        if (!response.equals("")){
-                            films = new ArrayList<>();
-                            star = new ArrayList<>();
-                            JSONArray test = null;
-                            String title = null;
-                            float stars;
-                            try {
-                                test = new JSONArray(response);
-                                for (int i = 0; i<1; i++){
-                                    JSONArray testArray = test.getJSONArray(0);
-                                    for (int j = 0 ; j<testArray.length();j++){
-                                        JSONArray testObject = testArray.getJSONArray(j);
-                                        title = testObject.getString(0);
-                                        stars = Float.parseFloat(testObject.getString(1));
-                                        films.add(title);
-                                        star.add(stars);
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            String whole = "";
-                            for (int i = 0; i < films.size(); i++) {
-                                whole += star.get(i);
-                                whole += " ";
-                                whole += films.get(i);
-                                whole += "\n";
-                            }
-                            listFilm.setText(whole);
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<>();
-                params.put("login", sessionManager.getUserLogin());
-                return params;
-            }
-
-        };
-        Volley.newRequestQueue(this).add(postRequest);
     }
 }

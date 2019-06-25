@@ -209,6 +209,7 @@ public class DirectorListActivity extends AppCompatActivity
         intent.putExtra("dateBirth", f.getDatumNarozeni());
         intent.putExtra("placeDeath", f.getMistoUmrti());
         intent.putExtra("dateDeath", f.getDatumUmrti());
+        intent.putExtra("directorImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -231,6 +232,7 @@ public class DirectorListActivity extends AppCompatActivity
                             String birthPlace = null;
                             String deathDate = null;
                             String deathPlace = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -246,6 +248,7 @@ public class DirectorListActivity extends AppCompatActivity
                                         birthPlace = testObject.getString(4);
                                         deathDate = testObject.getString(5);
                                         deathPlace = testObject.getString(6);
+                                        imageName = testObject.getString(7);
 
                                         Calendar a = getCalendar(birthDate);
                                         Calendar b = getCalendar(deathDate);
@@ -259,7 +262,7 @@ public class DirectorListActivity extends AppCompatActivity
                                         if (!deathDate.equals(""))
                                              death = b.get(DAY_OF_MONTH) + ". " + b.get(MONTH) + ". " + b.get(YEAR);
 
-                                        Director director = new Director(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace);
+                                        Director director = new Director(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace, imageName);
                                         directors.add(director);
                                     }
                                 }

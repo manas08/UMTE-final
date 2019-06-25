@@ -84,6 +84,7 @@ public class Top10ActorsFrag extends Fragment implements Top10ActorsViewListener
         intent.putExtra("dateBirth", f.getDatumNarozeni());
         intent.putExtra("placeDeath", f.getMistoUmrti());
         intent.putExtra("dateDeath", f.getDatumUmrti());
+        intent.putExtra("actorImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -107,6 +108,7 @@ public class Top10ActorsFrag extends Fragment implements Top10ActorsViewListener
                             String birthPlace = null;
                             String deathDate = null;
                             String deathPlace = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -122,13 +124,15 @@ public class Top10ActorsFrag extends Fragment implements Top10ActorsViewListener
                                         birthPlace = testObject.getString(4);
                                         deathDate = testObject.getString(5);
                                         deathPlace = testObject.getString(6);
+                                        imageName = testObject.getString(7);
 
-                                        if (!testObject.getString(7).equals("null")){
-                                            value.add(Float.parseFloat(testObject.getString(7)));
+                                        if (!testObject.getString(8).equals("null")){
+                                            value.add(Float.parseFloat(testObject.getString(8)));
                                         } else {
                                             float v = 0;
                                             value.add(v);
                                         }
+
 
                                         Calendar a = getCalendar(birthDate);
                                         Calendar b = getCalendar(deathDate);
@@ -142,7 +146,7 @@ public class Top10ActorsFrag extends Fragment implements Top10ActorsViewListener
                                         if (!deathDate.equals(""))
                                             death = b.get(DAY_OF_MONTH) + ". " + b.get(MONTH) + ". " + b.get(YEAR);
 
-                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace);
+                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace, imageName);
                                         actors.add(actor);
                                     }
                                 }

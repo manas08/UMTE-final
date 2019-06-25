@@ -80,6 +80,7 @@ public class Top10DirectorsFrag extends Fragment implements Top10DirectorsViewLi
         intent.putExtra("dateBirth", f.getDatumNarozeni());
         intent.putExtra("placeDeath", f.getMistoUmrti());
         intent.putExtra("dateDeath", f.getDatumUmrti());
+        intent.putExtra("directorImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -103,6 +104,7 @@ public class Top10DirectorsFrag extends Fragment implements Top10DirectorsViewLi
                             String birthPlace = null;
                             String deathDate = null;
                             String deathPlace = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -118,9 +120,10 @@ public class Top10DirectorsFrag extends Fragment implements Top10DirectorsViewLi
                                         birthPlace = testObject.getString(4);
                                         deathDate = testObject.getString(5);
                                         deathPlace = testObject.getString(6);
+                                        imageName = testObject.getString(7);
 
-                                        if (!testObject.getString(7).equals("null")){
-                                            value.add(Float.parseFloat(testObject.getString(7)));
+                                        if (!testObject.getString(8).equals("null")){
+                                            value.add(Float.parseFloat(testObject.getString(8)));
                                         } else {
                                             float v = 0;
                                             value.add(v);
@@ -138,7 +141,7 @@ public class Top10DirectorsFrag extends Fragment implements Top10DirectorsViewLi
                                         if (!deathDate.equals(""))
                                             death = b.get(DAY_OF_MONTH) + ". " + b.get(MONTH) + ". " + b.get(YEAR);
 
-                                        Director director = new Director(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace);
+                                        Director director = new Director(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace, imageName);
                                         directors.add(director);
                                     }
                                 }

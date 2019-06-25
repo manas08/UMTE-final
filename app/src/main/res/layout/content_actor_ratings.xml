@@ -7,6 +7,18 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/completeActorRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Celkové hodnocení: "
+        android:textColor="@color/colorAccent"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:textSize="0.15in"
+        android:textStyle="bold" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

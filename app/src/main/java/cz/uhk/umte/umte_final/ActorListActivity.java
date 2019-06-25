@@ -211,6 +211,7 @@ public class ActorListActivity extends AppCompatActivity
         intent.putExtra("dateBirth", f.getDatumNarozeni());
         intent.putExtra("placeDeath", f.getMistoUmrti());
         intent.putExtra("dateDeath", f.getDatumUmrti());
+        intent.putExtra("actorImageName", f.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
@@ -233,6 +234,7 @@ public class ActorListActivity extends AppCompatActivity
                             String birthPlace = null;
                             String deathDate = null;
                             String deathPlace = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -248,6 +250,7 @@ public class ActorListActivity extends AppCompatActivity
                                         birthPlace = testObject.getString(4);
                                         deathDate = testObject.getString(5);
                                         deathPlace = testObject.getString(6);
+                                        imageName = testObject.getString(7);
 
                                         Calendar a = getCalendar(birthDate);
                                         Calendar b = getCalendar(deathDate);
@@ -261,7 +264,7 @@ public class ActorListActivity extends AppCompatActivity
                                         if (!deathDate.equals(""))
                                             death = b.get(DAY_OF_MONTH) + ". " + b.get(MONTH) + ". " + b.get(YEAR);
 
-                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace);
+                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace,imageName);
                                         actors.add(actor);
                                     }
                                 }

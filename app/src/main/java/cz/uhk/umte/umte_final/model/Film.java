@@ -14,13 +14,14 @@ public class Film {
 
     public Film(){};
 
-    public Film(int id, String nazev, String anglickyNazev, int rok, String zemeNataceni, String genre) {
+    public Film(int id, String nazev, String anglickyNazev, int rok, String zemeNataceni, String genre, String adresar) {
         this.id = id;
         this.nazev = nazev;
         this.anglickyNazev = anglickyNazev;
         this.rok = rok;
         this.genre = genre;
         this.zemeNataceni = zemeNataceni;
+        this.adresar = adresar;
     }
 
     public int getId(){

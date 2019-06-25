@@ -15,25 +15,8 @@ public class Actor {
     public boolean jeOznacen;
     public String adresar;
     public float hodnoceni;
-    private static final AtomicInteger sequence = new AtomicInteger(1);
 
-    public static int generate(){
-        sequence.getAndSet(2);
-        return sequence.getAndIncrement();
-    }
-
-    public Actor(String jmeno, String prijmeni, int vek, String datumNarozeni, String mistoNarozeni, String datumUmrti, String mistoUmrti) {
-        this.id = generate();
-        this.jmeno = jmeno;
-        this.prijmeni = prijmeni;
-        this.vek = vek;
-        this.datumNarozeni = datumNarozeni;
-        this.mistoNarozeni = mistoNarozeni;
-        this.datumUmrti = datumUmrti;
-        this.mistoUmrti = mistoUmrti;
-    }
-
-    public Actor(int id, String jmeno, String prijmeni, int vek, String datumNarozeni, String mistoNarozeni, String datumUmrti, String mistoUmrti) {
+    public Actor(int id, String jmeno, String prijmeni, int vek, String datumNarozeni, String mistoNarozeni, String datumUmrti, String mistoUmrti, String adresar) {
         this.id = id;
         this.jmeno = jmeno;
         this.prijmeni = prijmeni;
@@ -42,6 +25,7 @@ public class Actor {
         this.mistoNarozeni = mistoNarozeni;
         this.datumUmrti = datumUmrti;
         this.mistoUmrti = mistoUmrti;
+        this.adresar = adresar;
     }
 
     public int getId() {

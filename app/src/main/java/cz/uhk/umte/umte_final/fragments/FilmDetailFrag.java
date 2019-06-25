@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -44,6 +45,7 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
 
     private TextView filmName, originalFilmName, filmYear, filmGenre, filmDirector, filmCountry;
 
+    private ImageView imageView;
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -77,6 +79,9 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
         filmCountry.setText(getActivity().getIntent().getStringExtra("filmCountry"));
         filmGenre.setText(getActivity().getIntent().getStringExtra("filmGenre"));
 
+        imageView = getView().findViewById(R.id.filmImageView);
+        if (!getActivity().getIntent().getStringExtra("filmImageName").equals(""))
+            imageView.setImageResource(getResources().getIdentifier(getActivity().getIntent().getStringExtra("filmImageName"), "drawable", getContext().getPackageName()));
 
         //RECYCLERVIEW
         recyclerView = getView().findViewById(R.id.recyclerCastView);
@@ -106,6 +111,7 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
                             String birthPlace = null;
                             String deathDate = null;
                             String deathPlace = null;
+                            String imageName = null;
                             try {
                                 test = new JSONArray(response);
 
@@ -121,6 +127,7 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
                                         birthPlace = testObject.getString(4);
                                         deathDate = testObject.getString(5);
                                         deathPlace = testObject.getString(6);
+                                        imageName = testObject.getString(7);
 
                                         Calendar a = getCalendar(birthDate);
                                         Calendar b = getCalendar(deathDate);
@@ -134,7 +141,7 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
                                         if (!deathDate.equals(""))
                                             death = b.get(DAY_OF_MONTH) + ". " + b.get(MONTH) + ". " + b.get(YEAR);
 
-                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace);
+                                        Actor actor = new Actor(id,firstName,lastName,vek,birth,birthPlace,death,deathPlace,imageName);
                                         actors.add(actor);
                                     }
                                 }
@@ -194,6 +201,7 @@ public class FilmDetailFrag extends Fragment implements CastViewListener {
         intent.putExtra("dateBirth", item.getDatumNarozeni());
         intent.putExtra("placeDeath", item.getMistoUmrti());
         intent.putExtra("dateDeath", item.getDatumUmrti());
+        intent.putExtra("actorImageName", item.getAdresar());
 
         startActivityForResult(intent, 1001);
     }
