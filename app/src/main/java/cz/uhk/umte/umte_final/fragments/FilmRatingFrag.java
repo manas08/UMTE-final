@@ -64,14 +64,18 @@ public class FilmRatingFrag extends Fragment {
     private void renderView(List<Ratings> list){
         float pom = 0;
 
-        for (int i = 0; i< list.size(); i++){
-            pom += list.get(i).getStars();
-        }
-        float c = (float) (((pom/list.size())/5)*100);
+        if (list.size() != 0){
+            for (int i = 0; i< list.size(); i++){
+                pom += list.get(i).getStars();
+            }
+            float c = (float) (((pom/list.size())/5)*100);
 
-        DecimalFormat df = new DecimalFormat("#");
-        df.setRoundingMode(RoundingMode.CEILING);
-        textView.setText("Celkové hodnocení: " + df.format(c) + "%");
+            DecimalFormat df = new DecimalFormat("#");
+            df.setRoundingMode(RoundingMode.CEILING);
+            textView.setText("Celkové hodnocení: " + df.format(c) + "%");
+        }else {
+            textView.setText("Neohodnocen");
+        }
         adapter = new RatingFeedAdapter(list);
         recyclerView.setAdapter(adapter);
     }

@@ -146,6 +146,9 @@ public class FilmListActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
+            Intent intent = new Intent(FilmListActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else if (id == R.id.nav_films) {
 

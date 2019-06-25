@@ -144,6 +144,9 @@ public class Top10Activity extends AppCompatActivity
             startActivity(intent);
             finish();
         } else if (id == R.id.nav_films) {
+            Intent intent = new Intent(Top10Activity.this, FilmListActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else if (id == R.id.nav_actors) {
             Intent intent = new Intent(Top10Activity.this, ActorListActivity.class);

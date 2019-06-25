@@ -155,6 +155,9 @@ public class ActorListActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
+            Intent intent = new Intent(ActorListActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else if (id == R.id.nav_films) {
             Intent intent = new Intent(ActorListActivity.this, FilmListActivity.class);

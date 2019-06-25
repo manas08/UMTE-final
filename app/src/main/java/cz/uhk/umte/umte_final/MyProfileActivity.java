@@ -33,9 +33,6 @@ public class MyProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SessionManager sessionManager;
-    List<String> films;
-    List<Float> star;
-    TextView listFilm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +87,9 @@ public class MyProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
+            Intent intent = new Intent(MyProfileActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else if (id == R.id.nav_films) {
             Intent intent = new Intent(MyProfileActivity.this, FilmListActivity.class);

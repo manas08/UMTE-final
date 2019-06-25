@@ -18,6 +18,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -26,6 +30,8 @@ import java.util.Map;
 import cz.uhk.umte.umte_final.Manager.SessionManager;
 import cz.uhk.umte.umte_final.MyProfileActivity;
 import cz.uhk.umte.umte_final.R;
+import cz.uhk.umte.umte_final.model.Director;
+import cz.uhk.umte.umte_final.model.Film;
 
 public class RegistrationFrag extends Fragment {
 
@@ -33,6 +39,7 @@ public class RegistrationFrag extends Fragment {
     Button btn;
     SessionManager sessionManager;
     String securePassword;
+    int pom;
 
     @Nullable
     @Override
@@ -54,13 +61,8 @@ public class RegistrationFrag extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (password.getText().toString().equals(confirmPassword.getText().toString())){
-                    byte[] salt = new byte[16];
-                    securePassword = getSecurePassword(password.getText().toString(), salt);
-                    register();
-                } else{
-                    Toast.makeText(getContext(),"Spatne zadene hesla." ,Toast.LENGTH_LONG).show();
-                }
+                pom=0;
+                validation();
             }
         });
     }
@@ -122,6 +124,67 @@ public class RegistrationFrag extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("login", login.getText().toString());
                 params.put("password", securePassword);
+                params.put("email", email.getText().toString());
+                return params;
+            }
+
+        };
+        Volley.newRequestQueue(getContext()).add(postRequest);
+    }
+
+    public void validation(){
+        String URL="https://umte-final.000webhostapp.com/validation.php";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONArray test = null;
+                        String login = null;
+                        String email = null;
+                        try {
+                            test = new JSONArray(response);
+
+
+                            for (int i = 0; i<1; i++){
+                                JSONObject testObject = test.getJSONObject(0);
+                                login = testObject.getString("login");
+                                email = testObject.getString("email");
+                                System.out.println(login + " " + email + "TTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+                                if (!login.equals("null") || !email.equals("null")){
+                                    pom = 1;
+                                }
+                            }
+
+                            if (pom==1){
+                                Toast.makeText(getContext(),"Uživatel s tímto loginem nebo emailem již existuje." ,Toast.LENGTH_LONG).show();
+                            }else {
+                                if (password.getText().toString().equals(confirmPassword.getText().toString())){
+                                    byte[] salt = new byte[16];
+                                    securePassword = getSecurePassword(password.getText().toString(), salt);
+                                    register();
+                                } else{
+                                    Toast.makeText(getContext(),"Spatne zadene hesla." ,Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),"Chyba s pripojenim." ,Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<>();
+                params.put("login", login.getText().toString());
                 params.put("email", email.getText().toString());
                 return params;
             }

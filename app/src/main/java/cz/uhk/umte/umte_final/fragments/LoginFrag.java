@@ -107,6 +107,7 @@ public class LoginFrag extends Fragment {
                             }
                             if (!inlogin.equals("null")){
                                 sessionManager = new SessionManager(getContext());
+                                sessionManager.logoutUser();
                                 sessionManager.createLoginSession(inlogin,inemail);
                                 startActivity(new Intent(getContext(), MyProfileActivity.class));
                                 getActivity().finish();
